@@ -1,0 +1,20 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}
+
+.messages li span {
+  margin-left: 0px;
+  color: #000000;
+  /* font-size: 13px */
+}
+
+.message-text {
+  color: #000000!important;
+  margin-right: auto;
+  font-size: 16px !important;
+}
