@@ -7,6 +7,8 @@ export const userExists = async (db, bodyParams) => {
         db.execute(query,
             [username, password],
             (err, rows, fields) => {
+                if (err)
+                    console.error(err);
                 if (rows.length == 0) {
                     return reject("User or password does not exist");
                 } else {

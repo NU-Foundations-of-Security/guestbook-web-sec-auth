@@ -5,8 +5,9 @@ const storeOTP = (db, token, userId) => {
     return new Promise((resolve, reject) => {
         const query = "REPLACE INTO otp (user_id, otp) values(?, ?)";
         db.execute(query,
-            [userId, token],
+            [userId, `${token}`],
             (err, rows, fields) => {
+                if (err) console.log(err);
                 return resolve(true);
             });
     });
@@ -44,8 +45,9 @@ export const getUserFromEmail = (db, email) => {
         db.execute(query,
             [email],
             (err, rows, fields) => {
+                if (err) console.error(err);
                 if (rows.length > 0) 
-                    return resolve(rows[0].user_id); 
+                    return resolve(rows[0].username); 
                 else
                     return reject(`${email} is not registered.`);
             });
@@ -53,7 +55,7 @@ export const getUserFromEmail = (db, email) => {
 };
 
 const sendEmail = (destination, subject, htmlBody) => {
-    const client = new postmark.ServerClient("5410bdd9-96ff-4049-baea-0f2be31eec40");
+    const client = new postmark.ServerClient("0a1dd707-55f3-4825-ae55-0c32bc58ae4a");
     client.sendEmail({
         "From": "srutib@u.northwestern.edu",
         "To": destination,
@@ -68,7 +70,7 @@ export const sendOTP = async (db, email) => {
 
     // Generate an OTP with 6 random numbers
     const OTP = otpGenerator.generate(8, { digits: true, lowerCaseAlphabets: false, upperCaseAlphabets: true, specialChars: true });
-    await storeOTP(db, OTP, userId, 5);
+    await storeOTP(db, OTP, userId);
 
     // Send it to the user's phone with twilio API
     sendEmail(email,
