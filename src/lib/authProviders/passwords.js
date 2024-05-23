@@ -3,7 +3,7 @@ export const userExists = async (db, bodyParams) => {
         const username = bodyParams.username;
         const password = bodyParams.password;
 
-        const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+        const query = `SELECT username AS user_id FROM users WHERE username = ? AND password = ?`;
         db.execute(query,
             [username, password],
             (err, rows, fields) => {

@@ -26,6 +26,6 @@ export default async function handler(req, res) {
         res.status(200).json(jwt);
     } catch (error) {
         closeDBInstance(db);
-        res.status(401).json(error.message);
+        res.status(401).json(error);
     }
 }
