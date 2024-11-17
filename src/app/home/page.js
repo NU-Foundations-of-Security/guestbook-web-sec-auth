@@ -26,7 +26,10 @@ export default function Home() {
     };
 
     const messagesFromApi = await fetch("/api/get_all_messages", requestOptions)
-      .then((res) => res.json());
+      .then((res) => {
+        if (!res.ok) logOut();
+        else return res.json();
+      });
 
     setMessages(messagesFromApi);
   }
