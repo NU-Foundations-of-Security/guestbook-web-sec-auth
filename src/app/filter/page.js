@@ -62,7 +62,7 @@ export default function Filter() {
             
             {<ul className={styles["messages"]}>
                 {messages?.map(( message ) => {
-                    return <li className={styles["li"]}>
+                    return <li className={styles["li"]} key="msg">
                         <table><tbody>
                             <tr>
                                 <td>Message: <span dangerouslySetInnerHTML={{__html: message}}></span></td>

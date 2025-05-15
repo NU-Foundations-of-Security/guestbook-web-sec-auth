@@ -3,11 +3,9 @@ import { verifyJWT } from "@/lib/jwt";
 
 const getAllMessages = async (db, userId) => {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT name, address, message FROM messages WHERE display = 1 AND user_id = ?;';
+        const query = `SELECT name, address, message FROM messages WHERE display = 1 AND user_id = \'${userId}\';`;
         console.log(query);
-        db.execute(query, 
-            [userId],
-            (err, rows, fields) => {
+        db.query(query, (err, rows, fields) => {
             if (err) {
                 console.error(err);
                 return reject(err);

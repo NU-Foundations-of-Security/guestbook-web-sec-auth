@@ -40,10 +40,8 @@ const createAccount = async (db, bodyParams) => {
         const userExists = await doesUserExist(db, username);
         if (userExists) return reject("Username exists");
 
-        const query = `INSERT INTO users (username, password, email) VALUES(?, ?, ?)`;
-        db.execute(query,
-            [user.getUsername(), user.getPassword(), email],
-            (err, rows, fields) => {
+        const query = `INSERT INTO users (username, password, email) VALUES(\'${user.getUsername()}\', \'${user.getPassword()}\', \'${email}\')`;
+        db.query(query, (err, rows, fields) => {
                 if (err) {
                     console.log(err);
                     return reject("Error creating account");

@@ -124,7 +124,7 @@ export default function Home() {
         <ul className={styles["messages"]}>
           {console.log(messages)}
           {messages?.map(({ name, address, message}) => {
-            return <li className={styles["li"]}>
+            return <li className={styles["li"]} key="msg">
               <table><tbody>
                 <tr>
                   <td>From: {name}</td>
