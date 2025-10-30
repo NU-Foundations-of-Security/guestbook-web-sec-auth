@@ -4,6 +4,7 @@ import { verifyJWT } from "@/lib/jwt";
 const createMessage = async (db, queryParams, userId) => {
     console.log(queryParams);
     return new Promise((resolve, reject) => {
+        console.log(queryParams)
 		const query = `INSERT INTO messages (user_id, name, display, message, address) VALUES(\'${userId}\', \'${queryParams.name}\', ${queryParams.display}, \'${queryParams.message}\', \'${queryParams.address}\')`;
         console.log(query);
         db.query(query, (err, rows, fields) => {
