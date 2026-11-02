@@ -1,4 +1,4 @@
-const postmark = require("postmark");
+import { Resend } from 'resend';
 const otpGenerator = require('otp-generator')
 
 const storeOTP = (db, token, userId) => {
@@ -55,13 +55,14 @@ export const getUserFromEmail = (db, email) => {
 };
 
 const sendEmail = (destination, subject, htmlBody) => {
-    const client = new postmark.ServerClient("0a1dd707-55f3-4825-ae55-0c32bc58ae4a");
-    client.sendEmail({
-        "From": "srutib@u.northwestern.edu",
-        "To": destination,
-        "Subject": subject,
-        "HTMLBody": htmlBody
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: destination,
+        subject: subject,
+        html: htmlBody
+});
 };
 
 export const sendOTP = async (db, email) => {
@@ -75,7 +76,7 @@ export const sendOTP = async (db, email) => {
     // Send it to the user's phone with twilio API
     sendEmail(email,
         "Your guestbook login details",
-        `Here is your One-Time Password: <b>${OTP}</b>.`);
+        `Here is your One-Time Password: <b>${OTP}</b>`);
 };
 
 export const verifyOTP = async (db, enteredCode) => {

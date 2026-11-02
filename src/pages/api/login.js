@@ -1,3 +1,4 @@
+import { serialize } from "cookie";
 import { sendOTP, verifyOTP } from "@/lib/authProviders/otp-email";
 import { userExists } from "@/lib/authProviders/passwords";
 import { closeDBInstance, getDatabase } from "@/lib/db";
