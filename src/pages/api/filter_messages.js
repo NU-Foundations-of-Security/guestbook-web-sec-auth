@@ -8,7 +8,7 @@ const filter = async (db, queryParams, userId) => {
     }
 
     return new Promise((resolve, reject) => {
-        const query = `SELECT message FROM messages WHERE name = \`${nameQuery}\` AND user_id = \'${userId}\'`;
+        const query = `SELECT message FROM messages WHERE name = \'${nameQuery}\' AND user_id = \'${userId}\'`;
         console.log(query);
         db.query(query, (err, rows, fields) => {
             if (fields && fields[0].constructor == Array) {

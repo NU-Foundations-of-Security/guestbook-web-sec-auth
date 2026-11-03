@@ -25,9 +25,11 @@ export default function Filter() {
         };
         const matchingMessages = await fetch(`/api/filter_messages?name=${nameToFind}`, requestOptions)
             .then((res) => {
+                console.log(res);
                 if (!res.ok) logOut();
-                else setMessages(matchingMessages);
+                else return res.json();
             });
+        setMessages(matchingMessages);
     };
 
     // This hook executes on page rendered. When the page loads,
